@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     private let searchController = UISearchController(searchResultsController: nil)
         
-    var allRes = [Result]()
+    var allRes = [Movie]()
 
     
     // MARK: - Lifecycle/Configuration/Setup Methods
