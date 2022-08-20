@@ -12,7 +12,20 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var emptyStateView: UIView!
+    
+    @IBOutlet weak var emptyStateLabel: UILabel!
+    
+    @IBOutlet weak var emptyStateImageView: UIImageView!
+    
+    
     // MARK: - ViewModel, Views & SearchController
+    var viewModel: SearchMoviesViewModel! {
+        didSet {
+            viewModel.delegate = self
+        }
+    }
     
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -129,3 +142,38 @@ extension ViewController: UISearchResultsUpdating {
     }
 }
 
+extension ViewController: SearchMoviesViewModelDelegate {
+    func showNoResultsState() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+            self?.tableView.tableHeaderView = nil
+            self?.emptyStateLabel.text = Constants.Search.emptyStateNoResultsText
+            self?.emptyStateView.isHidden = false
+            self?.emptyStateImageView.image = UIImage(named: Constants.Search.noResultsImage)
+        }
+    }
+    
+    func showEmptyState() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+            self?.emptyStateLabel.text = Constants.Search.emptyStateWelcomeText
+            self?.emptyStateView.isHidden = false
+            self?.emptyStateImageView.image = UIImage(named: Constants.Icons.appLogo)
+        }
+    }
+    
+    func didFindMovies() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+            self?.tableView.tableHeaderView = nil
+            self?.emptyStateView.isHidden = true
+        }
+    }
+    
+    func didFail(error: ErrorHandler) {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.tableHeaderView = nil
+            self?.showAlert(message: error.customMessage)
+        }
+    }
+}

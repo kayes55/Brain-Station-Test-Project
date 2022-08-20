@@ -10,6 +10,7 @@
 		4929963028B12A380092904F /* Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929962F28B12A380092904F /* Movies.swift */; };
 		4929963228B136FE0092904F /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929963128B136FE0092904F /* HttpClient.swift */; };
 		4929963528B137D90092904F /* MoviesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929963428B137D90092904F /* MoviesService.swift */; };
+		4929963728B139720092904F /* SearchMoviesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929963628B139720092904F /* SearchMoviesViewModel.swift */; };
 		49C708AE28A6C65C00F115FD /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C708AD28A6C65C00F115FD /* Endpoint.swift */; };
 		49C708B028A6C67500F115FD /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C708AF28A6C67500F115FD /* ErrorHandler.swift */; };
 		49C708B428A6C69500F115FD /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C708B328A6C69500F115FD /* HttpMethod.swift */; };
@@ -30,6 +31,7 @@
 		4929962F28B12A380092904F /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
 		4929963128B136FE0092904F /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		4929963428B137D90092904F /* MoviesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesService.swift; sourceTree = "<group>"; };
+		4929963628B139720092904F /* SearchMoviesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMoviesViewModel.swift; sourceTree = "<group>"; };
 		49C708AD28A6C65C00F115FD /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		49C708AF28A6C67500F115FD /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		49C708B328A6C69500F115FD /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 		49C708A928A6C5DE00F115FD /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				4929963628B139720092904F /* SearchMoviesViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				4929963528B137D90092904F /* MoviesService.swift in Sources */,
 				49C708B428A6C69500F115FD /* HttpMethod.swift in Sources */,
 				49F8010828A6B52100D6AC5B /* ViewController.swift in Sources */,
+				4929963728B139720092904F /* SearchMoviesViewModel.swift in Sources */,
 				49F8010428A6B52100D6AC5B /* AppDelegate.swift in Sources */,
 				4929963228B136FE0092904F /* HttpClient.swift in Sources */,
 				4929963028B12A380092904F /* Movies.swift in Sources */,
