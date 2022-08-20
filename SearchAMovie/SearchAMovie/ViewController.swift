@@ -21,17 +21,11 @@ class ViewController: UIViewController {
     
     
     // MARK: - ViewModel, Views & SearchController
-    var viewModel: SearchMoviesViewModel! {
-        didSet {
-            viewModel.delegate = self
-        }
-    }
+    var viewModel: SearchMoviesViewModel = SearchMoviesViewModel()
     
     
     private let searchController = UISearchController(searchResultsController: nil)
         
-    var allRes = [Movie]()
-
     
     // MARK: - Lifecycle/Configuration/Setup Methods
     override func viewDidLoad() {
@@ -39,14 +33,24 @@ class ViewController: UIViewController {
 
         configureDelegates()
         configureSearchController()
-        getMovies()
+        configEmptyUI()
     }
 
 
     
     private func configureDelegates() {
+        viewModel.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    private func configEmptyUI() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+            self?.emptyStateLabel.text = Constants.Search.emptyStateWelcomeText
+            self?.emptyStateView.isHidden = false
+            self?.emptyStateImageView.image = UIImage(named: Constants.Icons.appLogo)
+        }
     }
     
     private func configureSearchController() {
@@ -58,44 +62,14 @@ class ViewController: UIViewController {
         navigationItem.searchController = searchController
     }
     
-    func getMovies() {
-        guard let base = URL(string: "https://api.themoviedb.org/3/search/movie?api_key=38e61227f85671163c275f9bd95a8803&query=spider") else {
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: base) { data, response, error in
-            guard error == nil else {
-                print("error BS \(String(describing: error))")
-                return}
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                 let decoder = JSONDecoder()
-                 let response = try decoder.decode(Movies.self, from: data)
-                 self.allRes = response.results
-                 DispatchQueue.main.async {
-                   self.tableView.reloadData()
-                 }
-
-            } catch {
-                print(error)
-            }
-            
-        }
-        task.resume()
-        
-        
-    }
-    
    
 }
 
 // MARK: - UITableViewDelegate/DataSource Methods
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.allRes.count
+        return viewModel.numberOfRows()
+//        return allRes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -105,10 +79,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath
         ) as! MovieCell
                 
-        
-        cell.title.text = allRes[indexPath.row].title
-        cell.body.text = allRes[indexPath.row].overview
-        cell.imageForMovie.image = UIImage(named: "NoResults")
+        let movie = viewModel.getMovie(at: indexPath)
+        cell.title.text = movie.title
+        cell.body.text = movie.overview
+        cell.imageForMovie.loadImage(from: viewModel.backdropImageURL(of: movie))
         return cell
     }
     
@@ -124,7 +98,7 @@ extension ViewController: UISearchResultsUpdating {
         if !inputTextByUser.isEmpty {
             tableView.tableHeaderView = createSpinner()
         }
-        print("User input text \(inputTextByUser)")
+        viewModel.searchMovies(with: inputTextByUser)
     }
     
     private func createSpinner() -> UIView {

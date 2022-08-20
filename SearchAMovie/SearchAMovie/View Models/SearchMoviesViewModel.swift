@@ -33,6 +33,13 @@ final class SearchMoviesViewModel {
         return movies[indexPath.row]
     }
     
+    func backdropImageURL(of movie: Movie) -> String {
+        guard let posterPath = movie.backdropPath else {
+            return Constants.ApiImageURL.backdropPlaceholder
+        }
+        return Constants.ApiImageURL.highQuality + posterPath
+    }
+    
     func numberOfRows() -> Int {
         return movies.count
     }

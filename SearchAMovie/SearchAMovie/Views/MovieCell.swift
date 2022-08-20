@@ -11,7 +11,7 @@ import UIKit
 
 class MovieCell: UITableViewCell {
     
-    @IBOutlet weak var imageForMovie: UIImageView!
+    @IBOutlet weak var imageForMovie: CachedImageView!
     
     @IBOutlet weak var title: UILabel!
     

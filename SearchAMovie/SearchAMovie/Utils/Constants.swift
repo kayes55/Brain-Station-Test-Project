@@ -15,12 +15,16 @@ struct Constants {
     
     static let notAvailable = "N/A"
     
+    struct APIKey {
+        static let key = "38e61227f85671163c275f9bd95a8803"
+    }
+    
     struct Icons {
         static let appLogo = "Logo"
     }
 
     struct Search {
-        static let emptyStateWelcomeText = "Welcome! Type a movie name to start."
+        static let emptyStateWelcomeText = "Type a movie name to start."
         static let emptyStateNoResultsText = "Sorry! We couldn't find any results."
         static let placeholder = "Search movies"
         static let noResultsImage = "NoResults"

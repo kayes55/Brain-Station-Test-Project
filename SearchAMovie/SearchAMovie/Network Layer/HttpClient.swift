@@ -28,13 +28,8 @@ final class HttpClient: HttpClientProtocol {
             completion(.failure(.invalidURL))
             return
         }
-        
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
-        
-        if let body = endpoint.body {
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-        }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             

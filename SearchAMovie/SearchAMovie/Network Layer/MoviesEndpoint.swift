@@ -33,7 +33,7 @@ extension MoviesEndpoint: Endpoint {
         switch self {
         case .searchMovie(let query):
             return [
-                "api_key" : "38e61227f85671163c275f9bd95a8803",
+                "api_key" : Constants.APIKey.key,
                 "query": query
             ]
         }
