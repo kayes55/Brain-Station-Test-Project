@@ -49,6 +49,8 @@ final class HttpClient: HttpClientProtocol {
                     let decodedData = try JSONDecoder().decode(T.self, from: data)
                     completion(.success(decodedData))
                 } catch {
+                    print("Something went wrong! \(error.localizedDescription)")
+                    debugPrint(error)
                     completion(.failure(.decode))
                 }
             case 400:

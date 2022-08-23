@@ -29,8 +29,8 @@ final class SearchMoviesViewModel {
     
     weak var delegate: SearchMoviesViewModelDelegate?
     
-    func getMovie(at indexPath: IndexPath) -> Movie {
-        return movies[indexPath.row]
+    func getMovie(at indexPath: IndexPath) -> Movie? {
+        return !movies.isEmpty ? movies[indexPath.row] : nil
     }
     
     func backdropImageURL(of movie: Movie) -> String {

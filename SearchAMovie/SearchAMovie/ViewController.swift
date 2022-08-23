@@ -69,7 +69,6 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRows()
-//        return allRes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,10 +78,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath
         ) as! MovieCell
                 
-        let movie = viewModel.getMovie(at: indexPath)
-        cell.title.text = movie.title
-        cell.body.text = movie.overview
-        cell.imageForMovie.loadImage(from: viewModel.backdropImageURL(of: movie))
+        if let movie = viewModel.getMovie(at: indexPath) {
+            cell.title.text = movie.title
+            cell.body.text = movie.overview
+            cell.imageForMovie.loadImage(from: viewModel.backdropImageURL(of: movie))
+        }
+        
         return cell
     }
     
@@ -98,7 +99,7 @@ extension ViewController: UISearchResultsUpdating {
         if !inputTextByUser.isEmpty {
             tableView.tableHeaderView = createSpinner()
         }
-        viewModel.searchMovies(with: inputTextByUser)
+        self.viewModel.searchMovies(with: inputTextByUser)  
     }
     
     private func createSpinner() -> UIView {
